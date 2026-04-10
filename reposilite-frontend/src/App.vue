@@ -184,6 +184,10 @@ html, body {
   z-index: 1;
 }
 
+.vfm {
+  z-index: 2000 !important;
+}
+
 .glass-panel,
 .glass-soft {
   background: linear-gradient(180deg, var(--bg-panel) 0%, var(--bg-panel-soft) 100%);
