@@ -37,9 +37,9 @@ export default {
     <VueFinalModal
       v-model="showAdjustments"
       v-bind="$attrs"
-      class="flex justify-center iems-center"
+      class="flex justify-center iems-center bg-black bg-opacity-70 backdrop-blur-sm"
     >
-      <div class="relative border bg-white dark:bg-gray-900 border-gray-100 dark:border-black m-w-20 py-5 px-10 rounded-2xl shadow-xl text-center">
+      <div class="relative m-w-20 py-5 px-10 rounded-2xl text-center glass-modal">
         <div>
           <h1 class="font-bold pb-4">File browser adjustments</h1>
           <hr class>
@@ -50,12 +50,12 @@ export default {
           <div class="flex justify-between pt-6">
             <p class="pr-7">
               Display utility files such as 
-              <span class="font-italic font-mono bg-gray-200 dark:bg-black px-2 py-0.5 m-2 rounded-lg">.asc/.md5/.sha1/.sha256/.sha512</span>
+              <span class="font-italic font-mono glass-input px-2 py-0.5 m-2 rounded-lg">.asc/.md5/.sha1/.sha256/.sha512</span>
             </p>
             <Toggle v-model="displayHashFiles" class="ml-10"/>
           </div>
         </div>
-        <button class="absolute top-0 right-0 mt-5 mr-9" @click="showAdjustments = false">
+        <button class="absolute top-0 right-0 mt-5 mr-9 icon-action" @click="showAdjustments = false">
           <CloseIcon />
         </button>
       </div>

@@ -117,7 +117,7 @@ const toggleCompactMode = () => {
 const MenuButton = (_, context) => {
   return (
     <div class="w-9 mx-2">
-      <div class="bg-white dark:bg-gray-900 pl-2 pt-1.3 pb-1 pr-2 cursor-pointer rounded-full default-button">
+      <div class="pl-2 pt-1.3 pb-1 pr-2 cursor-pointer rounded-full default-button">
         {context.slots.default()}
       </div>
     </div>
@@ -126,13 +126,13 @@ const MenuButton = (_, context) => {
 </script>
 
 <template>
-  <div class="bg-gray-100">
-    <div class="dark:bg-black">
+  <div>
+    <div>
       <div class="container mx-auto relative min-h-320px mb-12">
         <div class="lg:absolute pt-13 -top-5 right-8">
           <Card :qualifier="qualifier" />
         </div>
-        <div class="lg:max-w-2/5 xl:max-w-1/2">
+        <div class="lg:max-w-2/5 xl:max-w-1/2 p-5 rounded-3xl glass-panel <sm:(rounded-2xl p-3)">
           <div class="flex justify-between pt-7 px-2">
             <Breadcrumb :parentPath="parentPath" />
             <div class="flex">
@@ -143,7 +143,7 @@ const MenuButton = (_, context) => {
               <AdjustmentsModal>
                 <template v-slot:button>
                   <div class="w-9">
-                    <div class="bg-white dark:bg-gray-900 pl-2 pt-1.3 pb-1 pr-2 cursor-pointer rounded-full default-button">
+                    <div class="pl-2 pt-1.3 pb-1 pr-2 cursor-pointer rounded-full default-button">
                       <AdjustmentsIcon class="pr-0.9" />
                     </div>
                   </div>

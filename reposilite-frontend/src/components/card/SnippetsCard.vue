@@ -107,7 +107,7 @@ const selectTab = (tab) =>
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-900 shadow-lg p-7 rounded-xl border-gray-100 dark:border-black">
+  <div class="glass-panel glass-accent p-7 rounded-2xl">
     <div class="flex flex-row justify-between">
       <h1 class="font-bold flex items-center w-full">
         {{title}}
@@ -123,10 +123,10 @@ const selectTab = (tab) =>
       @selectTab="selectTab"
     />
 
-    <hr class="dark:border-gray-800 <sm:(hidden)">
+    <hr class="border-white border-opacity-10 <sm:(hidden)">
 
     <transition :name="transitionName" mode="out-in">
-      <div :key="selectedTab" class="card-editor overflow-auto font-mono text-ssm h-29 relative mt-6 py-3 px-4 rounded-lg bg-gray-100 dark:bg-gray-800">
+      <div :key="selectedTab" class="card-editor overflow-auto font-mono text-ssm h-29 relative mt-6 py-3 px-4 rounded-lg glass-input">
         <template v-for="entry in configurations" :key="entry.name">
           <template v-if="entry.name === selectedTab">
             <RepositorySnippet
@@ -154,7 +154,7 @@ const selectTab = (tab) =>
   border-top-right-radius: 10%;
 }
 #card-menu div:hover {
-  @apply bg-gray-100 dark:bg-gray-800;
+  @apply bg-white bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-70;
   transition: background-color 0.5s;
 }
 

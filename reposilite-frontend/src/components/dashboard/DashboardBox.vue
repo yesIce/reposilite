@@ -18,14 +18,14 @@ defineProps({
 </script>
 
 <template>
-  <div class="py-3 w-1/6 mx-4 text-center border-2 border-xl rounded-xl border-gray-700 <sm:(h-16 w-full flex flex-col justify-center mb-2 mx-0)">
+  <div class="py-3 w-1/6 mx-4 text-center rounded-xl glass-soft <sm:(h-16 w-full flex flex-col justify-center mb-2 mx-0)">
     <a v-if="link" :href="link" target="_blank">
-      <div class="flex text-blue-500 w-full justify-center">
-        <h1 class="text-md pt-1">{{title}}</h1>
+      <div class="flex text-white w-full justify-center">
+        <h1 class="card-title text-md pt-1">{{title}}</h1>
         <LinkIcon class="w-3 py-1"/>
       </div>
     </a>
-    <h1 v-else class="text-md pt-1">{{title}}</h1>
-    <p class="text-md font-bold">{{content}}</p>
+    <h1 v-else class="card-title text-md pt-1">{{title}}</h1>
+    <p class="card-body text-md font-bold">{{content}}</p>
   </div>
 </template>

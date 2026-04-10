@@ -50,14 +50,14 @@ watchEffect(() => localStorage.setItem('dropdown-open', dropdownOpen.value))
         :key="configuration.name" 
         @click="selectConfiguration(configuration)"
         class="py-4 px-7 flex-grow text-center border-b-2 cursor-pointer border-transparent"
-        :class="{ '!border-gray-800': configuration.name === selectedTab }"
+        :class="{ 'border-gray-700 dark:border-gray-200': configuration.name === selectedTab }"
       >
         {{ configuration.name }}
       </div>
     </div>
     <div class="hidden flex-col items-center mt-24px <sm:(flex)">
       <div
-        class="w-full box-border py-5px p-2 rounded-lg border-1 border-true-gray-200 dark:border-dark-300"
+        class="w-full box-border py-5px p-2 rounded-lg border-1 glass-input"
         @click="dropdownOpen = !dropdownOpen"
       >
         {{ selectedTab }}
@@ -65,7 +65,7 @@ watchEffect(() => localStorage.setItem('dropdown-open', dropdownOpen.value))
           <DownIcon />
         </div>
       </div>
-      <ul v-if="!dropdownOpen" class="rounded-lg w-full box-border p-2 bg-true-gray-100 dark:bg-dark-600">
+      <ul v-if="!dropdownOpen" class="rounded-lg w-full box-border p-2 glass-soft">
         <li
             v-for="configuration in configurations"
             :key="configuration.name"

@@ -26,29 +26,70 @@ defineProps({
 const route = useRoute()
 
 const breadcrumbs = computed(() => {
-  const crumbs = route.path.split('/')
+  const parts = route.path.split('/').filter(Boolean)
 
-  return crumbs.map((name, index) => ({
-    link: crumbs.slice(0, index + 1).join('/') || '/',
-    name: index === crumbs.length - 1 ? name : name + '/'
+  return parts.map((name, index) => ({
+    link: '/' + parts.slice(0, index + 1).join('/'),
+    name: index === parts.length - 1 ? name : name + '/'
   }))
 })
 </script>
 
 <template>
-  <div class="">
-    <p class="pb-3 font-semibold">
-      <span class="select-none">
-        <router-link to="/">Index of </router-link>
-      </span>
+  <div class="pb-3">
+    <div class="breadcrumb-shell">
+      <router-link to="/" class="breadcrumb-root select-none">Repository</router-link>
+      <span class="breadcrumb-divider select-none">/</span>
       <span class="select-text">
-        <router-link v-for="crumb of breadcrumbs" :key="crumb.link" :to="crumb.link">
-          <span class="hover:(transition-colors duration-200 text-purple-500)">{{ crumb.name }}</span>
+        <router-link v-for="crumb of breadcrumbs" :key="crumb.link" :to="crumb.link" class="breadcrumb-link">
+          <span>{{ crumb.name }}</span>
         </router-link>
       </span>
-      <router-link :to="parentPath">
-        <span class="font-normal text-xl text-gray-500 select-none"> ⤴ </span>
+      <router-link :to="parentPath" class="breadcrumb-up select-none" title="Go to parent directory">
+        ⤴
       </router-link>
-    </p>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.breadcrumb-shell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-panel-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 0.45rem 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.breadcrumb-root {
+  color: var(--text-main);
+}
+
+.breadcrumb-divider {
+  color: var(--text-note);
+}
+
+.breadcrumb-link {
+  color: var(--text-muted);
+}
+
+.breadcrumb-link:hover {
+  color: #ffb800;
+  transition: color 180ms ease;
+}
+
+.breadcrumb-up {
+  margin-left: 0.2rem;
+  color: var(--text-note);
+  font-size: 1.05rem;
+}
+
+.breadcrumb-up:hover {
+  color: #ffb800;
+}
+
+</style>

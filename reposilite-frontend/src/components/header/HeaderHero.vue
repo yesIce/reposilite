@@ -18,20 +18,22 @@
 import GlobeIcon from '../icons/GlobeIcon.vue'
 import usePlaceholders from '../../store/placeholders'
 
-const { description, organizationWebsite, organizationLogo } = usePlaceholders()
+const { title, description, organizationWebsite, organizationLogo } = usePlaceholders()
 </script>
 
 <template>
-  <div class="bg-gray-100 dark:bg-black">
-    <div class="container mx-auto flex flex-row <sm:(flex-col items-center)">
-      <div class="w-35 <sm:mb-2">
-        <img class="border-2 rounded-full dark:border-gray-700" :src="organizationLogo">
+  <div class="container mx-auto pt-8 pb-4">
+    <div class="flex flex-col items-center text-center">
+      <div class="w-20 mb-4">
+        <img class="hero-logo border border-white border-opacity-10 rounded-full" :src="organizationLogo">
       </div>
-      <div class="flex flex-col justify-center px-10 <sm:px-0">
-        <div class="<sm:text-center" v-html="description"></div>
-        <div class="flex flex-row py-2 <sm:justify-center">
+      <h1 class="hero-headline page-title text-5xl <sm:text-3xl">{{ title }}</h1>
+      <div class="section-divider"></div>
+      <div class="glass-panel max-w-3xl w-full p-6 <sm:px-4">
+        <div class="hero-subtext card-body" v-html="description"></div>
+        <div class="hero-cta flex flex-row justify-center py-2">
           <GlobeIcon />
-          <a class="px-3 text-gray-500" :href="organizationWebsite" target="_blank">{{organizationWebsite}}</a>
+          <a class="px-3 text-[#bbbbbb] hover:text-[#ffb800]" :href="organizationWebsite" target="_blank">{{ organizationWebsite }}</a>
         </div>
       </div>
     </div>

@@ -30,13 +30,13 @@ const { title } = usePlaceholders()
 </script>
 
 <template>
-  <header class="bg-gray-100 dark:bg-black dark:text-white">
-    <div class="container mx-auto flex flex-row py-10 justify-between <sm:(pb-2 pt-5 px-5 justify-start)">
-      <h1 @click="logoClickCallback" class="text-xl font-medium py-1 <sm:w-1/2">
+  <header class="dark:text-white pt-4 px-2 <sm:px-0">
+    <div class="container mx-auto flex flex-row py-4 px-6 justify-between glass-soft <sm:(pb-2 pt-5 px-5 justify-start)">
+      <h1 @click="logoClickCallback" class="hero-headline text-sm tracking-widest font-medium py-1 <sm:w-1/2">
         <router-link :to="'/'">{{ title }}</router-link>
       </h1>
-      <MenuPanel class="mt-0.5"/>
+      <MenuPanel class="hero-cta mt-0.5"/>
     </div>
-    <HeaderHero class="pt-2 pb-10 <sm:pb-4" />
+    <HeaderHero class="pt-6 pb-9 <sm:pb-4" />
   </header>
 </template>

@@ -104,8 +104,9 @@ const uploadFiles = () => {
       :class="[ isEnabled ? 'rounded-t-3xl rounded-b' : 'rounded-3xl' ]"
       class="
         border border-dashed mt-1.5 cursor-pointer
-        bg-gray-50 border-gray-300 hover:(transition-colors duration-200 bg-white)
-        dark:bg-black dark:border-gray-800 dark:hover:(transition-colors duration-400 bg-gray-900)
+        glass-soft
+        hover:(transition-colors duration-200 bg-white bg-opacity-60)
+        dark:hover:(transition-colors duration-400 bg-gray-800 bg-opacity-65)
       "
     >
       <FileUpload
@@ -125,7 +126,7 @@ const uploadFiles = () => {
             </p>
           </div>
           <div v-else class="flex">
-            <span class="text-xm pt-1.6">🟣</span>
+            <span class="text-xm pt-1.6">◉</span>
             <span class="font-bold px-5">Select files</span>
           </div>
         </div>
@@ -134,7 +135,7 @@ const uploadFiles = () => {
         <div class="-mt-2 pb-2">
           <div v-for="file in files" :key="file.name" class="pt-1 px-6 flex">
             <span @click="removeFile(file)" class="pt-0.85">
-              <CloseIcon class="h-5 pb-1 text-purple-400" />
+              <CloseIcon class="h-5 pb-1 text-gray-500 dark:text-gray-300" />
             </span>
             <span class="px-2">{{file.name}}</span>
           </div>
@@ -148,41 +149,37 @@ const uploadFiles = () => {
             <input type="checkbox" v-model="stubPomEnabled" class="mb-1 ml-1 dark:bg-gray-900" />
             <span class="pl-3" @click="stubPomEnabled = !stubPomEnabled" >Generate stub POM file</span>
           </div>
-          <div v-if="stubPomEnabled" class="pom-form mt-4 border px-3 pb-3 pt-1 bg-gray-100 dark:bg-black dark:border-gray-800 rounded">
+          <div v-if="stubPomEnabled" class="pom-form mt-4 border px-3 pb-3 pt-1 rounded glass-input">
             <div>
               <label>Group</label>
-              <input v-model="groupId" placeholder="com.dzikoysk" required/>
+              <input v-model="groupId" placeholder="com.dzikoysk" required class="glass-input"/>
             </div>
             <div>
               <label>Artifact</label>
-              <input v-model="artifactId" placeholder="reposilite" required/>
+              <input v-model="artifactId" placeholder="reposilite" required class="glass-input"/>
             </div>
             <div>
               <label>Version</label>
-              <input v-model="version" placeholder="3.0.0" required/>
+              <input v-model="version" placeholder="3.0.0" required class="glass-input"/>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div v-if="isEnabled" class="flex flex-col">
-      <div class="flex">
+      <div class="flex <sm:flex-col">
         <input
-          class="flex-1 mt-2 mr-2 rounded px-6 border-dashed dark:bg-gray-900 dark:border-gray-800 border"
+          class="flex-1 mt-2 mr-2 rounded px-6 border-dashed border glass-input <sm:mr-0"
           v-model="to"
           placeholder="E.g. path/to/deploy"
           @change="customDestination = true"
         />
         <button
           @click.prevent="uploadFiles"
-          class="
-            border text-sm py-1.5 h-9 px-4 mt-2 border-dashed rounded
-            bg-gray-50  border-gray-400 hover:(transition-colors duration-200 bg-purple-500 text-white)
-            dark:bg-black dark:border-gray-700 dark:text-white dark:hover:(transition-colors duration-200 bg-purple-700)
-          "
+          class="primary-action text-sm mt-2 <sm:w-full"
         >
           <span>Upload files </span>
-          <span class="font-bold text-purple-400">↝</span>
+          <span class="font-bold text-white">↝</span>
         </button>
       </div>
       <span v-if="!pathMatchesPom" class="px-6 text-yellow-500">⚠ Warning: Path does not match artifact coordinates</span>
@@ -204,6 +201,6 @@ const uploadFiles = () => {
   @apply w-1/6 p-1;
 }
 .pom-form input {
-  @apply flex-1 py-1 px-2 rounded dark:bg-gray-900;
+  @apply flex-1 py-1 px-2 rounded;
 }
 </style>

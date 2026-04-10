@@ -60,9 +60,9 @@ export default {
       v-if="isOpen"
       v-model="isOpen"
       v-bind="$attrs"
-      class="flex justify-center iems-center"
+      class="flex justify-center iems-center bg-black bg-opacity-70 backdrop-blur-sm"
     >
-      <div class="relative border bg-white dark:bg-gray-900 border-gray-100 dark:border-black m-w-20 py-5 px-10 rounded-2xl shadow-xl text-center">
+      <div class="relative m-w-20 py-5 px-10 rounded-2xl text-center glass-modal">
         <div>
           <h1 class="font-bold px-16">
             Do you want to delete 
@@ -71,11 +71,11 @@ export default {
             </span>
           </h1>
           <div class="flex flex-row justify-evenly pt-4">
-            <button @click="deleteAndClose()" class="px-12 py-1 rounded-full bg-red-500">Confirm</button>
-            <button @click="close()" class="px-12 py-1 rounded-full bg-gray-200 dark:bg-gray-600">Cancel</button>
+            <button @click="deleteAndClose()" class="danger-action">Confirm</button>
+            <button @click="close()" class="secondary-action">Cancel</button>
           </div>
         </div>
-        <button class="absolute top-0 right-0 mt-5 mr-9" @click.left.prevent="close()" v-on:click.stop>
+        <button class="absolute top-0 right-0 mt-5 mr-9 icon-action" @click.left.prevent="close()" v-on:click.stop>
           <CloseIcon />
         </button>
       </div>

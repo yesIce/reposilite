@@ -32,10 +32,10 @@ defineProps({
 })
 
 const listOfTabs = [
-  { name: 'Overview', manager: false },
-  { name: 'Dashboard', manager: true },
-  { name: 'Console', manager: true },
-  { name: 'Settings', manager: true },
+  { name: 'Overview', label: 'Repository', manager: false },
+  { name: 'Dashboard', label: 'Dashboard', manager: true },
+  { name: 'Console', label: 'Console', manager: true },
+  { name: 'Settings', label: 'Settings', manager: true },
 ]
 
 const { isManager } = useSession()
@@ -44,7 +44,20 @@ const { redirectTo } = useQualifier()
 const menuTabs = computed(() => {
   return listOfTabs
     .filter(entry => !entry?.manager || isManager.value)
-    .map(entry => entry.name)
+})
+
+const tabLabel = (tabName) =>
+  listOfTabs.find(entry => entry.name === tabName)?.label ?? tabName
+
+const isOverviewTab = (tabName) =>
+  tabName === 'Overview'
+
+const isDashboardTab = (tabName) =>
+  tabName === 'Dashboard'
+
+const tabButtonClass = (tabName) => ({
+  dashboard: isDashboardTab(tabName),
+  'overview-tab': isOverviewTab(tabName)
 })
 
 const selectedTab = ref(localStorage.getItem('selectedTab') || 'Overview')
@@ -66,7 +79,7 @@ const selectHomepage = () =>
 <template>
   <div>
     <DefaultHeader :logoClickCallback="selectHomepage" />
-    <div class="bg-gray-100 dark:bg-black overflow-y-visible">
+    <div class="overflow-y-visible">
       <div class="container mx-auto <sm:px-0">
         <Tabs 
           v-model="selectedTab"
@@ -77,23 +90,16 @@ const selectHomepage = () =>
             :key="`menu${i}`"
           >
             <Tab
-              v-if="tab !== 'Dashboard'"
               class="item font-normal <sm:w-1/4"
-              :val="tab"
-              :label="tab"
-              :indicator="true"
-            />
-            <Tab
-              v-if="tab === 'Dashboard'"
-              class="item font-normal dashboard <sm:w-1/4"
-              :val="tab"
-              :label="tab"
+              :class="tabButtonClass(tab.name)"
+              :val="tab.name"
+              :label="tabLabel(tab.name)"
               :indicator="true"
             />
           </template>
         </Tabs>
       </div>
-      <hr class="dark:border-gray-700">
+      <hr class="border-yellow-400 border-opacity-20">
       <div class="overflow-auto">
         <TabPanels v-model="selectedTab">
           <TabPanel :val="'Overview'">
@@ -117,11 +123,16 @@ const selectHomepage = () =>
 <style>
 .tabs .tab {
   cursor: pointer;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 .tabs .item:hover {
-  @apply bg-gray-150 dark:bg-gray-900;
-  transition: background-color 0.5s;
+  @apply text-yellow-400;
+  background-color: rgba(255, 196, 0, 0.08);
+  transition: color 200ms ease, background-color 200ms ease;
+}
+.tabs .overview-tab:hover {
+  background-color: rgba(255, 184, 0, 0.2);
 }
   .dashboard {
     @media (max-width: 640px) {
@@ -137,20 +148,23 @@ const selectHomepage = () =>
 
 <style scoped>
 .item {
-  @apply px-1;
+  @apply px-2;
   @apply pb-1;
-  @apply pt-1.5;
+  @apply pt-2;
   @apply cursor-pointer;
-  @apply text-gray-600 dark:text-gray-300;
-  @apply bg-gray-100 dark:bg-black;
+  color: var(--text-main);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  min-height: 40px;
 }
 .selected {
-  @apply border-b-2;
-  @apply border-black dark:border-white;
-  @apply text-black dark:text-white;
+  border-color: rgba(255, 184, 0, 0.65);
+  @apply text-yellow-400;
+  background: rgba(255, 196, 0, 0.13);
 }
-.tabs .item {
-  border-top-left-radius: 10%;
-  border-top-right-radius: 10%;
+.overview-tab {
+  background: linear-gradient(180deg, rgba(255, 184, 0, 0.16) 0%, rgba(255, 184, 0, 0.06) 100%);
+  border-color: rgba(255, 184, 0, 0.35);
 }
 </style>

@@ -121,6 +121,13 @@ const RouterEntry = ({ file }, context) => {
 
 <style>
 .compact-background {
-  @apply relative w-full bg-white dark:bg-gray-800 py-3 px-1 rounded-xl;
+  @apply relative w-full py-3 px-1 rounded-xl;
+  background: rgba(255, 255, 255, 0.36);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+.dark .compact-background {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.2);
 }
 </style>

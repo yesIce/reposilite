@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="mx-2 py-1.5 rounded-full font-bold px-6 text-sm max-h-35px min-w-93px default-button">
+  <div class="mx-2 py-2 rounded-lg font-semibold px-5 text-xs max-h-35px min-w-93px tracking-wider uppercase default-button">
     <slot/>
   </div>
 </template>

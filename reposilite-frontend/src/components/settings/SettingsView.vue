@@ -88,37 +88,38 @@ const formsConfiguration = {
 </script>
 
 <template>
-  <div class="container mx-auto py-10 px-15">
+  <div class="container mx-auto py-10 px-15 rounded-3xl glass-panel <sm:rounded-2xl">
     <div class="flex justify-between pb-3 flex-col">
       <div>
         <p>Modify configuration shared between all instances.</p>
         <p><strong>Remember</strong>: Configuration propagation can take up to 10 seconds on all your instances.</p>
       </div>
-      <div id="configuration-state" class="flex flex-row pt-8">
+      <div id="configuration-state" class="flex flex-row flex-wrap gap-2 pt-8 <sm:flex-col">
         <button 
           @click.prevent="executeIfValid(downloadSettings)" 
-          class="bg-gray-800 dark:bg-gray-600"
-          :class="{ forbidden: !isValid }"
+          class="secondary-action"
+          :class="{ 'is-disabled': !isValid }"
+          :disabled="!isValid"
         >
           Download as JSON
         </button>
         <FactoryResetModal :callback="factoryReset">
             <template v-slot:button>
-                <button class="bg-gray-800 dark:bg-gray-600">Factory reset</button>
+                <button class="secondary-action">Factory reset</button>
             </template>
         </FactoryResetModal>
         <button 
           @click.prevent="executeIfValid(updateConfiguration)" 
-          class="bg-gray-500 dark:bg-gray-800 cursor-not-allowed"
-          :class="{ changed: hasChanged, forbidden: !isValid }"
+          class="primary-action"
+          :class="{ 'is-disabled': !isValid || !hasChanged }"
           :disabled="!isValid || !hasChanged"
         >
           Update and reload
         </button>
         <button 
           @click.prevent="fetchConfiguration"
-          class="bg-gray-500 dark:bg-gray-800 cursor-not-allowed"
-          :class="{ changed: hasChanged }"
+          class="secondary-action"
+          :class="{ 'is-disabled': !isValid || !hasChanged }"
           :disabled="!isValid || !hasChanged"
         >
           Reset changes
@@ -139,7 +140,7 @@ const formsConfiguration = {
         v-for="domain in domains" 
         :val="domain" 
         :key="`config_tab:${domain}`" 
-        class="border-1 rounded dark:border-gray-700 p-4"
+        class="border-1 rounded p-4 glass-soft"
       >
         <JsonForms
           v-if="configurations[domain]"
@@ -158,24 +159,28 @@ const formsConfiguration = {
 <!--suppress CssInvalidAtRule -->
 <style scoped>
 #configuration-state button {
-  @apply mx-2 rounded text-sm px-4 text-white py-2;
+  @apply text-sm;
+  min-width: 170px;
 }
-#configuration-state .changed {
-  @apply bg-blue-700 cursor-pointer !important;
-}
-#configuration-state .forbidden {
-  @apply bg-gray-500 cursor-not-allowed !important;
+
+@media (max-width: 640px) {
+  #configuration-state button {
+    width: 100%;
+    min-width: 0;
+  }
 }
 .item {
   @apply pb-1;
   @apply pt-1.5;
   @apply cursor-pointer;
-  @apply text-gray-600 dark:text-gray-300;
-  @apply bg-gray-100 dark:bg-black;
+  color: #ffffff;
+  background: rgba(30, 30, 30, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 .tabs .item:hover {
-  @apply bg-gray-150 dark:bg-gray-900;
-  transition: background-color 0.5s;
+  @apply text-yellow-400;
+  background-color: rgba(255, 196, 0, 0.08);
+  transition: color 200ms ease, background-color 200ms ease;
 }
 </style>
 
@@ -245,10 +250,10 @@ const formsConfiguration = {
   @apply h-full flex flex-col; 
 }
 .one-of-container .active, .tab-panel .array-list .tab-panel .array-list .active {
-  @apply bg-gray-125 dark:bg-gray-900;
+  background: rgba(255, 196, 0, 0.08);
 }
 .one-of-container .tab-panel, .tab-panel .array-list .tab-panel .array-list .tab-panel {
-  @apply bg-gray-125 dark: bg-gray-900;
+  background: rgba(34, 34, 34, 0.9);
   border-radius: 0.25rem;
   padding-left: 17px;
 }
@@ -257,10 +262,11 @@ const formsConfiguration = {
 }
 .tab-panel {
   @apply h-full;
-  @apply border rounded-md px-6 py-2 dark:border-gray-600;
+  @apply border rounded-md px-6 py-2;
+  border-color: rgba(255, 255, 255, 0.07);
 }
 .array-list-add {
-  @apply rounded-full h-6 w-6 leading-6 bg-blue-700 ml-auto text-white z-1;
+  @apply rounded-full h-6 w-6 leading-6 bg-gray-700 ml-auto text-white z-1;
 }
 .array-list-item-move-up {
   display: none;
@@ -269,7 +275,14 @@ const formsConfiguration = {
   display: none;
 }
 .array-list-no-data {
-  @apply p-4 bg-gray-200 dark:bg-gray-900 italic rounded-md;
+  @apply p-4 italic rounded-md;
+  background: rgba(255, 255, 255, 0.36);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+.dark .array-list-no-data {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(148, 163, 184, 0.2);
 }
 .wrapper {
   @apply flex py-2;
@@ -281,10 +294,17 @@ const formsConfiguration = {
   @apply w-1/2;
 }
 .wrapper input, .wrapper select {
-  @apply dark:bg-gray-800 dark:text-white !important;
+  @apply dark:text-white !important;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+}
+.dark .wrapper input, .dark .wrapper select {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.22);
 }
 .wrapper input:not([type=checkbox]):read-only {
-  @apply bg-gray-200 dark:bg-gray-800 text-gray-500 !important;
+  @apply bg-gray-200 bg-opacity-70 dark:bg-gray-800 text-gray-500 !important;
 }
 .array-list-legend {
   margin-bottom: 0;

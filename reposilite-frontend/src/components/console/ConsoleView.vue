@@ -82,7 +82,7 @@ watch(
 <template>
   <div class="container mx-auto pt-10 px-15 pb-10 text-xs">
     <div class="flex text-sm flex-col xl:flex-row w-full py-2 justify-between">
-      <input placeholder="Filter" v-model="filter" class="w-full xl:w-1/2 mr-5 py-1 px-4 rounded-lg bg-white dark:bg-gray-900" />
+      <input placeholder="Filter" v-model="filter" class="w-full xl:w-1/2 mr-5 py-1 px-4 rounded-lg glass-input" />
       <div class="flex flex-row justify-around w-full xl:w-1/2 <md:flex-wrap">
         <div v-for="level in levels" :key="level.name" class="pt-1.9 xl:pt-0.8 font-sans whitespace-nowrap">
           <input
@@ -94,15 +94,15 @@ watch(
         </div>
       </div>
     </div>
-    <div class="bg-white dark:bg-gray-900 rounded-lg">
+    <div class="glass-panel rounded-lg">
       <div id="console" class="overflow-scroll h-144 px-4 py-2 whitespace-pre-wrap font-mono text-xs">
         <p v-for="entry in log" :key="entry.id" v-html="entry.message" class="whitespace-nowrap"/>
       </div>
-      <hr class="dark:border-dark-300">
+      <hr class="border-white border-opacity-10">
       <input
         id="consoleInput"
         placeholder="Type command or '?' to get help"
-        class="w-full py-2 px-4 rounded-b-lg bg-white dark:bg-gray-900 dark:text-white"
+        class="w-full py-2 px-4 rounded-b-lg glass-input dark:text-white"
         autocomplete="off"
         v-model="command"
         @keyup.enter="execute()"

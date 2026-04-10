@@ -47,19 +47,19 @@ export default {
     <VueFinalModal
       v-model="showLogin"
       v-bind="$attrs"
-      class="flex justify-center items-center"
+      class="flex justify-center items-center bg-black bg-opacity-70 backdrop-blur-sm"
     >
-      <div class="relative border bg-white dark:bg-gray-900 border-gray-100 dark:border-black m-w-20 py-5 px-10 rounded-2xl shadow-xl text-center">
+      <div class="relative m-w-20 py-5 px-10 rounded-2xl text-center glass-modal">
         <p class="font-bold text-xl pb-4">Login with access token</p>
         <form class="flex flex-col w-96 <sm:w-65" @submit.prevent="signin(name, secret)">
           <input placeholder="Name" v-model="name" type="text" class="input"/>
           <input placeholder="Secret" v-model="secret" type="password" class="input"/>
           <div class="text-right mt-1">
-            <button @click="close()" class="text-blue-400 text-xs">← Back to index</button>
+            <button @click="close()" class="link-action">← Back to index</button>
           </div>
-          <button class="bg-gray-100 dark:bg-gray-800 py-2 my-3 rounded-md cursor-pointer">Sign in</button>
+          <button class="primary-action my-3">Sign in</button>
         </form>
-        <button class="absolute top-0 right-0 mt-5 mr-5" @click="close()">
+        <button class="absolute top-0 right-0 mt-5 mr-5 icon-action" @click="close()">
           <CloseIcon />
         </button>
       </div>
@@ -74,11 +74,13 @@ export default {
 .input {
   @apply p-2;
   @apply my-1;
-  @apply bg-gray-50 dark:bg-gray-800;
   @apply rounded-md;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
 }
-#login-modal button:hover {
-  @apply bg-gray-200 dark:bg-gray-700;
-  transition: background-color 0.5s;
+.dark .input {
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(148, 163, 184, 0.22);
 }
 </style>
